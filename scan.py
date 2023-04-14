@@ -22,13 +22,14 @@ def starthack():
         for port in range(1, 100):
 ####################### This is a loop, targeting all ports in that range.####################
             hacking = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            hacking.settimeout(10)
             result = hacking.connect_ex((hack, port))
             if result ==0:
-                print(port,": OPEN")
+                print("PORT:", port,"    OPEN")
                 hacking.close()
                 print(t1)
             else:
-                print(port, ": CLOSED")
+                print("PORT:", port, "    CLOSED")
                 hacking.close()
                 print(t1)
     except KeyboardInterrupt:
