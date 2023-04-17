@@ -51,13 +51,19 @@ def starthack():
             if result ==0:
                 print("PORT:", port, Style.BRIGHT + Fore.GREEN + "    OPEN")
                 hacking.close()
-                print(Style.BRIGHT + Fore.YELLOW + "STATUS:", r.status_code)
+                if r.status_code ==200:
+                    print(Style.BRIGHT + Fore.YELLOW + "STATUS:", Style.BRIGHT + Fore.GREEN + "OK")
+                else:
+                    print(Style.BRIGHT + Fore.YELLOW + "STATUS:", Style.BRIGHT + Fore.RED + "BAD")
                 print(datetime.now())
-                
+
             else:
                 print("PORT:", port, Style.BRIGHT + Fore.RED +"    CLOSED")
                 hacking.close()
-                print(Style.BRIGHT + Fore.YELLOW + "STATUS:", r.status_code)
+                if r.status_code == 200:
+                    print(Style.BRIGHT + Fore.YELLOW + "STATUS:", Style.BRIGHT + Fore.GREEN + "OK")
+                else:
+                    print(Style.BRIGHT + Fore.YELLOW + "STATUS:", Style.BRIGHT + Fore.RED + "BAD")
                 print(datetime.now())
     except KeyboardInterrupt:
         print(t1)
