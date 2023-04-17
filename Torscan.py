@@ -37,21 +37,21 @@ def starthack():
 
 
     try:
-        port = 22
-        connect_to_socks()
-        r = requests.get('http://wtfismyip.com/text')
-        print(Style.BRIGHT + Fore.BLUE + "CONNECTED VIA:", r.text)
-        hacking = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        hacking.settimeout(20)
-        result = hacking.connect((hack, port))
-        if result == 0:
-            print("PORT:", port, Style.BRIGHT + Fore.GREEN + "    OPEN")
-            hacking.close()
-            if r.status_code == 200:
-                print(Style.BRIGHT + Fore.YELLOW + "STATUS:", Style.BRIGHT + Fore.GREEN + "OK")
-            else:
-                print(Style.BRIGHT + Fore.YELLOW + "STATUS:", Style.BRIGHT + Fore.RED + "BAD")
-            print(datetime.now())
+        for port in range(1,100):
+            connect_to_socks()
+            r = requests.get('http://wtfismyip.com/text')
+            print(Style.BRIGHT + Fore.BLUE + "CONNECTED VIA:", r.text)
+            hacking = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            hacking.settimeout(20)
+            result = hacking.connect((hack, port))
+            if result == 0:
+                print("PORT:", port, Style.BRIGHT + Fore.GREEN + "    OPEN")
+                hacking.close()
+                if r.status_code == 200:
+                    print(Style.BRIGHT + Fore.YELLOW + "STATUS:", Style.BRIGHT + Fore.GREEN + "OK")
+                else:
+                    print(Style.BRIGHT + Fore.YELLOW + "STATUS:", Style.BRIGHT + Fore.RED + "BAD")
+                print(datetime.now())
 
         else:
             print("PORT:", port, Style.BRIGHT + Fore.RED + "    CLOSED")
