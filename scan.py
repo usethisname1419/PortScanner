@@ -49,7 +49,7 @@ print("LOADING...")
 
 
 print("STARTING PROCESS.....")
-######################### Fuctions: def means Define. functions are called with the () characters##############
+
 def starthack(port):
 
         hacking = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -91,38 +91,32 @@ def starthack(port):
 
 def threader():
     while True:
-        # gets a worker from the queue
+    
         worker = q.get()
 
-        # Run the example job with the available
-        # worker in queue (thread)
+       
         starthack(worker)
 
-        # completed with the job
         q.task_done()
 
 
-# Creating the queue and threader
 q = Queue()
 
-# number of threads are we going to allow for
 for x in range(thr):
     t = threading.Thread(target=threader)
 
-    # classifying as a daemon, so they it will
-    # die when the main dies
+
     t.daemon = True
 
-    # begins, must come after daemon definition
     t.start()
 
 start = time.time()
 
-# 10 jobs assigned.
+
 for worker in range(1, num):
     q.put(worker)
 
-# wait till the thread terminates.
+
 q.join()
 print("")
 print(Style.BRIGHT + Fore.YELLOW + "END OF REPORT")
