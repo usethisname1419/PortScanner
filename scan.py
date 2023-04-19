@@ -19,8 +19,9 @@ print("=============COREXITAL PORT SCANNER=============")
 print("")
 target = input("ENTER TARGER IP:  ")
 ports = input("ENTER NUMBER OF PORTS TO SCAN:   ")
+threads = input("ENTER NUMBER OF THREADS:   ")
 hack = socket.gethostbyname(target)
-
+thr = int(threads)
 todo = input("USE TOR? Y/N:   ")
 
 if todo =="Y":
@@ -37,7 +38,7 @@ if todo =="Y":
         print(Style.BRIGHT + Fore.YELLOW + "PROXY STATUS:", Style.BRIGHT + Fore.RED + "BAD")
 if todo =="N":
     r = requests.get('http://wtfismyip.com/text')
-    print(Style.BRIGHT + Fore.BLUE + "CURRENT IP:", r.text)  # prints my ordinary IP address
+    print(Style.BRIGHT + Fore.BLUE + "CURRENT IP:", r.text)
     print(Style.BRIGHT + Fore.RED + "NOT CONNECTED TO TOR!!")
 num = int(ports)
 print("Starting at: ")
@@ -46,10 +47,7 @@ t1 = datetime.now()
 print(t1)
 print("LOADING...")
 
-print("")
 
-
-print("")
 print("STARTING PROCESS.....")
 ######################### Fuctions: def means Define. functions are called with the () characters##############
 def starthack(port):
@@ -65,6 +63,8 @@ def starthack(port):
                 hacking.close()
                 print(datetime.now())
                 print("")
+                if port ==22:
+                    print("SSH IS VULNERABLE!! ")
 
 
             else:
@@ -72,6 +72,7 @@ def starthack(port):
                 hacking.close()
                 print(datetime.now())
                 print("")
+
         except KeyboardInterrupt:
             print(t1)
             print("Canceled")
@@ -105,7 +106,7 @@ def threader():
 q = Queue()
 
 # number of threads are we going to allow for
-for x in range(3):
+for x in range(thr):
     t = threading.Thread(target=threader)
 
     # classifying as a daemon, so they it will
