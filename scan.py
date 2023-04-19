@@ -19,9 +19,15 @@ print("=============COREXITAL PORT SCANNER=============")
 print("")
 target = input("ENTER TARGET IP:  ")
 ports = input("ENTER NUMBER OF PORTS TO SCAN:   ")
-threads = input("ENTER NUMBER OF THREADS:   ")
+threads = input("ENTER NUMBER OF THREADS (MAXIMUM: 3)   ")
+if threads=="1":
+    thr = 1
+if threads=="2":
+    thr = 2
+if threads=="3":
+    thr = 3
 hack = socket.gethostbyname(target)
-thr = int(threads)
+
 todo = input("USE TOR? Y/N:   ")
 
 if todo =="Y":
@@ -55,13 +61,15 @@ print("WAITING FOR RESULTS...")
 def starthack(port):
 
         hacking = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        hacking.settimeout(60)
+        hacking.settimeout(10)
         try:
             result = hacking.connect_ex((hack, port))
             if result ==0:
                 service = socket.getservbyport(port)
+                print("-----------------------------------------")
                 print(Style.BRIGHT + Fore.YELLOW + "PORT:", port, Style.BRIGHT + Fore.GREEN + "    OPEN")
                 print("SERVICE:", service)
+                print("-----------------------------------------")
                 hacking.close()
 
                 print("")
@@ -71,9 +79,11 @@ def starthack(port):
 
 
             else:
+                print("-----------------------------------------")
                 print(Style.BRIGHT + Fore.YELLOW + "PORT:", port, Style.BRIGHT + Fore.RED +"    CLOSED")
+                print("-----------------------------------------")
                 hacking.close()
-              
+
                 print("")
                 print("")
 
