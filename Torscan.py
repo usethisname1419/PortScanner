@@ -15,15 +15,13 @@ print("")
 target = input("Enter IP Address:  ")
 hack = socket.gethostbyname(target)
 
-def connect_to_socks():
-    socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, '127.0.0.1', 9050, True)
-    socket.socket = socks.socksocket
+proxy = {
+    'http':  'socks5://localhost:9050',
+    'https': 'socks5://localhost:9050',
+}
 
 
-
-
-print("Scanning IP", hack)
-print("Starting to get target information at: ")
+print("Starting at: ")
 
 t1 = datetime.now()
 print(t1)
@@ -31,37 +29,30 @@ print("LOADING...")
 r = requests.get('http://wtfismyip.com/text')
 print(Style.BRIGHT + Fore.BLUE + "CURRENT IP:", r.text) #prints my ordinary IP address
 print("")
-print("CONNECTING TOR....")
+print(Style.BRIGHT + Fore.YELLOW + "CONNECTING TOR....")
+
+r = requests.get('http://wtfismyip.com/text', proxies=proxy)
+print(Style.BRIGHT + Fore.BLUE + "CONNECTED VIA:", r.text)
+if r.status_code == 200:
+    print(Style.BRIGHT + Fore.YELLOW + "PROXY STATUS:", Style.BRIGHT + Fore.GREEN + "OK")
+else:
+    print(Style.BRIGHT + Fore.YELLOW + "PROXY STATUS:", Style.BRIGHT + Fore.RED + "BAD")
 def starthack():
-
-
-
+######################### Fuctions: def means Define. functions are called with the () characters##############
     try:
-        for port in range(1,100):
-            connect_to_socks()
-            r = requests.get('http://wtfismyip.com/text')
-            print(Style.BRIGHT + Fore.BLUE + "CONNECTED VIA:", r.text)
+        for port in range(1, 100):
             hacking = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            hacking.settimeout(20)
-            result = hacking.connect((hack, port))
-            if result == 0:
-                print("PORT:", port, Style.BRIGHT + Fore.GREEN + "    OPEN")
+            hacking.settimeout(10)
+            result = hacking.connect_ex((hack, port))
+            if result ==0:
+                print(Style.BRIGHT + Fore.YELLOW + "PORT:", port, Style.BRIGHT + Fore.GREEN + "    OPEN")
                 hacking.close()
-                if r.status_code == 200:
-                    print(Style.BRIGHT + Fore.YELLOW + "STATUS:", Style.BRIGHT + Fore.GREEN + "OK")
-                else:
-                    print(Style.BRIGHT + Fore.YELLOW + "STATUS:", Style.BRIGHT + Fore.RED + "BAD")
                 print(datetime.now())
 
-        else:
-            print("PORT:", port, Style.BRIGHT + Fore.RED + "    CLOSED")
-            hacking.close()
-            if r.status_code == 200:
-                print(Style.BRIGHT + Fore.YELLOW + "STATUS:", Style.BRIGHT + Fore.GREEN + "OK")
             else:
-                print(Style.BRIGHT + Fore.YELLOW + "STATUS:", Style.BRIGHT + Fore.RED + "BAD")
-            print(datetime.now())
-
+                print(Style.BRIGHT + Fore.YELLOW + "PORT:", port, Style.BRIGHT + Fore.RED +"    CLOSED")
+                hacking.close()
+                print(datetime.now())
     except KeyboardInterrupt:
         print(t1)
         print("Canceled")
@@ -76,7 +67,6 @@ def starthack():
         print("Error")
         print("ERROR")
         sys.exit()
-
 starthack()
 
 print("")
