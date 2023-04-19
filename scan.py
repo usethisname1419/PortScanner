@@ -26,6 +26,10 @@ if threads=="2":
     thr = 2
 if threads=="3":
     thr = 3
+else:
+    print("INVALID INPUT!!!")
+    print("ERROR: QUITTING....")
+    sys.exit()
 hack = socket.gethostbyname(target)
 
 todo = input("USE TOR? Y/N:   ")
