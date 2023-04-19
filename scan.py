@@ -50,6 +50,10 @@ if todo =="N":
     r = requests.get('http://wtfismyip.com/text')
     print(Style.BRIGHT + Fore.BLUE + "CURRENT IP:", r.text)
     print(Style.BRIGHT + Fore.RED + "NOT CONNECTED TO TOR!!")
+else:
+    print("INVALID INPUT!!!")
+    print("ERROR: QUITTING....")
+    sys.exit()
 num = int(ports)
 print("Starting at: ")
 
