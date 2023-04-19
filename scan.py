@@ -50,7 +50,7 @@ print(t1)
 
 
 print(Style.BRIGHT + Fore.YELLOW + "SCANNING:", target)
-print("WAITING FOR RESULTS...")
+print("CHECKING FOR OPEN PORTS....")
 ######################### Fuctions: def means Define. functions are called with the () characters##############
 def starthack(port):
 
@@ -71,11 +71,10 @@ def starthack(port):
 
 
             else:
-                print(Style.BRIGHT + Fore.YELLOW + "PORT:", port, Style.BRIGHT + Fore.RED +"    CLOSED")
+               
                 hacking.close()
-              
-                print("")
-                print("")
+
+
 
         except KeyboardInterrupt:
             print(t1)
