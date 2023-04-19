@@ -1,6 +1,7 @@
 import socket
 import sys
 import requests
+import socks
 from datetime import datetime
 from colorama import init, Fore, Style
 import subprocess
@@ -30,17 +31,20 @@ print("LOADING...")
 r = requests.get('http://wtfismyip.com/text')
 print(Style.BRIGHT + Fore.BLUE + "CURRENT IP:", r.text) #prints my ordinary IP address
 print("")
-print(Style.BRIGHT + Fore.YELLOW + "CONNECTING TOR....")
-print("")
-r = requests.get('http://wtfismyip.com/text', proxies=proxy)
-print(Style.BRIGHT + Fore.BLUE + "CONNECTED VIA:", r.text)
-if r.status_code == 200:
-    print(Style.BRIGHT + Fore.YELLOW + "PROXY STATUS:", Style.BRIGHT + Fore.GREEN + "OK")
-else:
-    print(Style.BRIGHT + Fore.YELLOW + "PROXY STATUS:", Style.BRIGHT + Fore.RED + "BAD")
-print("")
-print("STARTING PROCESS.....")
-def starthack(num):
+
+def starthack():
+    print(Style.BRIGHT + Fore.YELLOW + "CONNECTING TOR....")
+    print("")
+    socks.set_default_proxy(socks.SOCKS5, '127.0.0.1' , 9050)
+    socket.socket = socks.socksocket
+    r = requests.get('http://wtfismyip.com/text')
+    print(Style.BRIGHT + Fore.BLUE + "CONNECTED VIA:", r.text)
+    if r.status_code == 200:
+        print(Style.BRIGHT + Fore.YELLOW + "PROXY STATUS:", Style.BRIGHT + Fore.GREEN + "OK")
+    else:
+        print(Style.BRIGHT + Fore.YELLOW + "PROXY STATUS:", Style.BRIGHT + Fore.RED + "BAD")
+    print("")
+    print("STARTING PROCESS.....")
 ######################### Fuctions: def means Define. functions are called with the () characters##############
     try:
         for port in range(1, 100):
@@ -70,7 +74,7 @@ def starthack(num):
         print("Error")
         print("ERROR")
         sys.exit()
-starthack(20)
+starthack()
 
 print("")
 print(Style.BRIGHT + Fore.YELLOW + "END OF REPORT")
