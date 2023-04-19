@@ -31,7 +31,7 @@ print("LOADING...")
 r = requests.get('http://wtfismyip.com/text')
 print(Style.BRIGHT + Fore.BLUE + "CURRENT IP:", r.text) #prints my ordinary IP address
 print("")
-print("CONNECTING SOCKS....")
+print("CONNECTING TOR....")
 def starthack():
 
 
